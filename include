@@ -1,0 +1,4 @@
+usr/bin/dd
+usr/bin/qemu-aarch64-static
+usr/lib/binfmt.d/qemu-aarch64.conf
+usr/libexec/qemu-binfmt/aarch64-binfmt-P

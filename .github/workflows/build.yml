@@ -1,0 +1,16 @@
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          podman build --squash-all -t "ghcr.io/${{ github.repository }}" .
+          podman login -u token -p "${{ github.token }}" ghcr.io
+          podman push "ghcr.io/${{ github.repository }}"
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo podman run --privileged "ghcr.io/${{ github.repository }}"
+      - run: podman run arm64v8/debian true
